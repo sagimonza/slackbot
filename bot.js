@@ -1,5 +1,5 @@
 
-var Botkit = require("./lib/Botkit.js");
+var Botkit = require("botkit");
 
 var token = process.env["SLACK_BOT_TOKEN"];
 if (!token) {
