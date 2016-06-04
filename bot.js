@@ -15,7 +15,7 @@ controller.hears(["remind @(.+) to (.+) in (\d+) (hours|minutes)"], 'direct_mess
 	var secondsToReminder = message.match[3] * 60;
 	if (message.match[4] == "hours") secondsToReminder = secondsToReminder * 60;
 	
-	console.log("adding a reminder to:" + message.match[1] + " in:" + secondsToReminder " seconds with text:" + message.match[2]);
+	console.log("adding a reminder to:" + message.match[1] + " in:" + secondsToReminder + " seconds with text:" + message.match[2]);
 	bot.api.callAPI("reminders.add", { text : message.match[2], time : secondsToReminder, user : message.match[1] });
 	bot.reply(message, "Sure. Added a reminder to:" + message.match[1]);
 });
