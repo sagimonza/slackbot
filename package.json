@@ -1,0 +1,20 @@
+{
+  "name": "my-slack-bot",
+  "version": "0.1.0",
+  "description": "A Slack bot",
+  "engines": {
+    "node": "4.3.1"
+  },
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "botkit": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sagimonza/slackbot.git"
+  },
+  "license": "MIT"
+}
