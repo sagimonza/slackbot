@@ -1,5 +1,6 @@
 
 var Botkit = require("botkit");
+var express = require("express");
 
 var token = process.env["SLACK_BOT_TOKEN"];
 if (!token) {
@@ -8,7 +9,6 @@ if (!token) {
 }
 
 var controller = Botkit.slackbot({ debug : true });
-
 var bot = controller.spawn({ token : token }).startRTM();
 
 controller.hears(["remind @(.+) to (.+) in (\d+) (hours|minutes)"], 'direct_message,direct_mention,mention', function(bot, message) {
@@ -18,4 +18,15 @@ controller.hears(["remind @(.+) to (.+) in (\d+) (hours|minutes)"], 'direct_mess
 	console.log("adding a reminder to:" + message.match[1] + " in:" + secondsToReminder + " seconds with text:" + message.match[2]);
 	bot.api.callAPI("reminders.add", { text : message.match[2], time : secondsToReminder, user : message.match[1] });
 	bot.reply(message, "Sure. Added a reminder to:" + message.match[1]);
+});
+
+// hack so heroku won't kill us because we don't add a listener on the port in 60 seconds
+var app = express();
+app.get("/", function(req, res) {
+	res.send("good");
+});
+
+var listenPort = process.env.PORT || 3000;
+app.listen(listenPort, function () {
+	console.log('Example app listening on port ' + listenPort);
 });
