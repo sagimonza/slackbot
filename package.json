@@ -7,7 +7,7 @@
   },
   "main": "bot.js",
   "scripts": {
-    "start": "hubot: node bot.js"
+    "start": "web: node bot.js"
   },
   "dependencies": {
     "botkit": "^0.2.0",

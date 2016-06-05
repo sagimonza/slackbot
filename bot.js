@@ -56,3 +56,9 @@ var listenPort = process.env.PORT || 3000;
 app.listen(listenPort, function () {
 	console.log('Example app listening on port ' + listenPort);
 });
+
+// hack to prevent heroku idle
+var http = require("http");
+setInterval(function() {
+    http.get("http://customslackbot.herokuapp.com");
+}, 120000); // every 5 minutes (300000)
