@@ -7,7 +7,7 @@ if (!token) {
     process.exit(1);
 }
 
-var controller = Botkit.slackbot({});
+var controller = Botkit.slackbot({ debug : true });
 
 var bot = controller.spawn({ token : token }).startRTM();
 
