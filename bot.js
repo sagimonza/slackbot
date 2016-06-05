@@ -25,6 +25,10 @@ controller.on('message_received', function(bot, message) {
 	if (message.text == "kuku") bot.reply(message, "you said kuku");
 });
 
+controller.on('direct_message',function(bot,message) {
+  console.log("message_received2:" + message.text + " keys:" + Object.keys(message) + " proto:" + Object.keys(message.__proto__ || {}) + " type:" + message.type);
+  bot.reply(message,'You are talking directly to me');
+});
 
 // hack so heroku won't kill us because we don't add a listener on the port in 60 seconds
 var app = express();
