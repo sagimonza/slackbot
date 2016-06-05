@@ -28,7 +28,7 @@ controller.hears([/remind (.+) to (.+) in (\d+) (hours|minutes)/], ['direct_mess
 			if (!member) return console.log("error find member:" + message.match[1]);
 			
 			console.log("reminding to:" + member.id);
-			bot.say({ text : message.match[2], channel : member.id });
+			bot.say({ text : message.match[2], channel : "@" + member.name });
 		});
 	}, secondsToReminder * 1000);
 	reminderTimers[reminderTimer] = { message : message, bot : bot };
