@@ -20,6 +20,12 @@ controller.hears(["remind @(.+) to (.+) in (\d+) (hours|minutes)"], 'direct_mess
 	bot.reply(message, "Sure. Added a reminder to:" + message.match[1]);
 });
 
+controller.on('message_received', function(bot, message) {
+	console.log("message_received:" + message.text + " keys:" + Object.keys(message));
+	if (message.text == "kuku") bot.reply(message, "you said kuku");
+});
+
+
 // hack so heroku won't kill us because we don't add a listener on the port in 60 seconds
 var app = express();
 app.get("/", function(req, res) {
