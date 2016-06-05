@@ -11,13 +11,29 @@ if (!token) {
 var controller = Botkit.slackbot({ debug : true });
 var bot = controller.spawn({ token : token }).startRTM();
 
+
+var reminderTimers = {};
 controller.hears([/remind (.+) to (.+) in (\d+) (hours|minutes)/], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
 	var secondsToReminder = Number(message.match[3]) * 60;
 	if (message.match[4] == "hours") secondsToReminder = secondsToReminder * 60;
 	
 	console.log("adding a reminder to:" + message.match[1] + " in:" + secondsToReminder + " seconds with text:" + message.match[2]);
-	bot.api.callAPI("reminders.add", { text : message.match[2], time : secondsToReminder, user : message.match[1] });
 	bot.reply(message, "Sure. Added a reminder to:" + message.match[1]);
+	var reminderTimer = setTimeout($ => {
+		delete reminderTimers[reminderTimer];
+		bot.api.users.list({}, (err, usersList) => {
+			if (!usersList) return console.log("error fetching users:" + err);
+			
+			var member = usersList.members.find(member => member.name == message.match[1]);
+			if (!member) return console.log("error find member:" + message.match[1]);
+			
+			console.log("reminding to:" + member.id);
+			bot.say({ text : message.match[2], channel : member.id });
+		});
+	}, secondsToReminder * 1000);
+	reminderTimers[reminderTimer] = { message : message, bot : bot };
+	//bot.api.callAPI("reminders.add", { text : message.match[2], time : secondsToReminder, user : message.match[1] });
+	
 });
 
 controller.on('message_received', function(bot, message) {
