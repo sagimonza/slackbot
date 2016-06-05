@@ -1,1 +1,1 @@
-web: node bot.js
+hubot: node bot.js
