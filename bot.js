@@ -11,7 +11,7 @@ if (!token) {
 var controller = Botkit.slackbot({ debug : true });
 var bot = controller.spawn({ token : token }).startRTM();
 
-controller.hears(["remind (.+) to (.+) in (\d+) (hours|minutes)"], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
+controller.hears([/remind (.+) to (.+) in (\d+) (hours|minutes)/], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
 	var secondsToReminder = Number(message.match[3]) * 60;
 	if (message.match[4] == "hours") secondsToReminder = secondsToReminder * 60;
 	
