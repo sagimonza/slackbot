@@ -21,8 +21,7 @@ controller.hears(["remind @(.+) to (.+) in (\d+) (hours|minutes)"], 'direct_mess
 });
 
 controller.on('message_received', function(bot, message) {
-	console.log("message_received:" + message.text + " keys:" + Object.keys(message) + " proto:" + Object.keys(message.__proto__ || {}));
-	console.log("message_received:" + JSON.parse(message));
+	console.log("message_received:" + message.text + " keys:" + Object.keys(message) + " proto:" + Object.keys(message.__proto__ || {}) + " type:" + message.type);
 	if (message.text == "kuku") bot.reply(message, "you said kuku");
 });
 
