@@ -7,7 +7,7 @@
   },
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "worker: node bot.js"
   },
   "dependencies": {
     "botkit": "^0.2.0"
